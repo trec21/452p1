@@ -29,6 +29,16 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
+    <widget class="QGraphicsView" name="graphicsView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>601</width>
+       <height>461</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="controlPanelFrm">
     <property name="geometry">
@@ -72,31 +82,6 @@ Clockwise</string>
       <string>Clockwise</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>50</y>
-       <width>31</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>2</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>3</string>
-      </property>
-     </item>
-    </widget>
     <widget class="QLabel" name="axisLbl">
      <property name="geometry">
       <rect>
@@ -122,6 +107,31 @@ Clockwise</string>
      <property name="text">
       <string>Paint!</string>
      </property>
+    </widget>
+    <widget class="QListWidget" name="axisList">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>30</y>
+       <width>21</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
     </widget>
    </widget>
    <zorder>controlPanelFrm</zorder>
