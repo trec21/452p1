@@ -20,7 +20,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     link.h \
-    canvas.h
+    canvas.h \
+    armadillo
 
 FORMS    += mainwindow.ui
 
