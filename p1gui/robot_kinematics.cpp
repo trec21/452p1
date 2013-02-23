@@ -16,24 +16,24 @@ class Link
 {
 public:
 	
-	static vector<Link*> Links;
-	int length;
-	int loc_x;
-	int loc_y;
-	double link_number;
-	double _a;
-	double _alpha;
-	double _d;
-	double _theta;
-	
-	Link()
-	{
-		Links.push_back(this);
-		link_number = Links.size() - 1;
-	}
+    static vector<Link*> Links;
+    int length;
+    int loc_x;
+    int loc_y;
+    double link_number;
+    double _a;
+    double _alpha;
+    double _d;
+    double _theta;
 
-	Link(int origin_x, int origin_y, int l)
-	{
+    Link()
+    {
+        Links.push_back(this);
+        link_number = Links.size() - 1;
+    }
+
+    Link(int origin_x, int origin_y, int l)
+    {
 		Links.push_back(this);
 		length = l;
 		link_number = Links.size() - 1;
