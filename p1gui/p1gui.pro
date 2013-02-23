@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     link.cpp \
-    canvas.cpp
+    canvas.cpp \
+    robot_kinematics.cpp
 
 HEADERS  += mainwindow.h \
     link.h \
@@ -23,5 +24,4 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-RESOURCES += \
-    resourceFile.qrc
+
