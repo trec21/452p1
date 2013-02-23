@@ -7,6 +7,9 @@
 int NUM_LINKS = 3;
 int WIDTH = 30;
 int HEIGHT = 5*WIDTH;
+double RAD_TO_DEG = 180 / M_PI;
+double DEG_TO_RAD = M_PI / 180;
+
 
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
@@ -21,16 +24,10 @@ void Canvas::initialize() {
     QPen blackPen(Qt::black);
     blackPen.setWidth(1);
     Link* link;
-    QRectF rect = this->sceneRect();
-    double heightCanvas = rect.height();
-    double widthCanvas = rect.width();
-    printf("height: %f, width: %f", heightCanvas, widthCanvas);
 
     for(int i=0; i< NUM_LINKS; i++) {
-        link = static_cast <Link*>(this->addEllipse(0,0,WIDTH,HEIGHT,blackPen,blackBrush));
-        link->setTransformOriginPoint(WIDTH/2,HEIGHT/2);
-        // this works because of reasons
-        link->setY(HEIGHT*i);
+        link = static_cast <Link*>(this->addEllipse(-WIDTH/2,HEIGHT*i,WIDTH,HEIGHT,blackPen,blackBrush));
+        link->setTransformOriginPoint(0,HEIGHT*i);
 
         links.push_back(link);
     }
@@ -41,34 +38,71 @@ void Canvas::initialize() {
 //void Canvas::update(vector<QPoint>* points) {
 void Canvas::updateLinks() {
 
-    // previousJoint starts as the origin
-    QPoint previousJoint;
-    QPoint currentJoint;
-    previousJoint.setX(0);
-    previousJoint.setY(0);
-    currentJoint.setX(0);
-    currentJoint.setY(-106);
-    double midX = (previousJoint.x() + currentJoint.x())/2;
-    double midY = (previousJoint.y() + currentJoint.y())/2;
-    QPoint center(midX, midY);
-    double angle = -atan2(midY,midX) * 180 / M_PI; // to degrees
+    // There is four positions to keep track of:
+    // targetBackJointPos
+    // targetFrontJointPos
+    // currentBackJointPos
+    // currentFrontJointPos
+    // BackJoint = i
+    // FrontJoint = i+1
+    // i = link number
+
+    QPointF targetBackJointPos;
+    QPointF targetFrontJointPos;
+    targetBackJointPos.setX(0);
+    targetBackJointPos.setY(0);
+    vector<QPointF> targetPoints;
+    targetFrontJointPos.setX(106);
+    targetFrontJointPos.setY(106);
+    targetPoints.push_back(targetFrontJointPos);
+
+    targetFrontJointPos.setX(106);
+    targetFrontJointPos.setY(150 + 106);
+    targetPoints.push_back(targetFrontJointPos);
+
+    targetFrontJointPos.setX(0);
+    targetFrontJointPos.setY(150 + 106 + 106);
+    targetPoints.push_back(targetFrontJointPos);
+
+    QPointF currentBackJointPos;
+    QPointF currentFrontJointPos;
+    QPointF shiftPoint(0,0);
 
     Link* link;
     for(size_t i=0; i<links.size(); i++) {
+        targetFrontJointPos = targetPoints[i];
         link = links[i];
-        qDebug() << "Before: " << link->rect();
+
+        currentBackJointPos = link->mapToScene(link->pos());
+        double angleX = targetFrontJointPos.x() - targetBackJointPos.x();
+        double angleY = targetFrontJointPos.y() - targetBackJointPos.y();
+        double angle = atan2(angleY,angleX) * RAD_TO_DEG - 90; // to degrees
+
+        currentFrontJointPos = QPointF(HEIGHT * sin(link->rotation() * DEG_TO_RAD) + currentFrontJointPos.x(), HEIGHT * cos(link->rotation() * DEG_TO_RAD) + currentFrontJointPos.y());
+        // Absolute in scene
+
+        qDebug() << "Front: " << currentFrontJointPos << "Back: " <<  currentBackJointPos << "angle: " << angle;
 
         /* This works because of reasons */
         //link->setTransform(QTransform().translate(center.x(), center.y()));
-
-        link->setRotation(link->rotation() - 1);
-
+        //link->setPos(center);
+        link->setPos(shiftPoint);
+        // link->setTransformOriginPoint(shiftPoint);
+        if(i !=1)
+            link->setRotation(angle);
+        else
+            link->setRotation(00);
         //link->setTransform(QTransform().translate(-center.x(), -center.y()));
 
-        qDebug() << "After: " << link->rect() << link->rotation() << link->transformOriginPoint();
 
+        double shitfX = -1*currentFrontJointPos.x() + targetFrontJointPos.x() ;
+        double shitfY = -1*currentFrontJointPos.y() + targetFrontJointPos.y() ;
 
+        shiftPoint = QPointF(shitfX, shitfY);
+        qDebug() << "Shift: " << shiftPoint << " FROM: " << link->mapToScene(shiftPoint);
+
+        targetBackJointPos = targetFrontJointPos;
     }
 
-
 }
+
