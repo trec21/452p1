@@ -16,12 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     link.cpp \
     canvas.cpp \
-    robot_kinematics.cpp
+    axis.cpp
 
 HEADERS  += mainwindow.h \
     link.h \
     canvas.h \
-    armadillo
+    armadillo \
+    axis.h
 
 FORMS    += mainwindow.ui
 

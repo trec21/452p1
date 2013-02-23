@@ -1,5 +1,25 @@
 #include "link.h"
 
+Link::Link()
+{
+    Links.push_back(this);
+    link_number = Links.size() - 1;
+}
+
+Link::Link(int origin_x, int origin_y, int l)
+{
+    Links.push_back(this);
+    length = l;
+    link_number = Links.size() - 1;
+}
+
+void Link::setDH(int a, int alpha, int d, int theta)
+{
+    _alpha = alpha;
+    _a = a;
+    _d = d;
+    _theta = theta;
+}
 
 
 
