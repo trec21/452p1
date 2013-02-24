@@ -10,22 +10,53 @@ int HEIGHT = 5*WIDTH;
 double RAD_TO_DEG = 180 / M_PI;
 double DEG_TO_RAD = M_PI / 180;
 
+Canvas::Canvas(QObject *parent) :
+    QGraphicsScene(parent)
+{
+
+
+
+}
 
 
 void Canvas::initialize() {
     QBrush blackBrush(Qt::black);
     QPen blackPen(Qt::black);
     blackPen.setWidth(1);
-    Link* link;
+
+    Axis* axis;
+    vector<double> heights;
+    for(int i=0; i< NUM_LINKS+1; i++) {
+
+        if (i==0) {
+            axis = new Axis(0, 0);
+            heights.push_back(0);
+        } else if(i==1) {
+            axis = new Axis(0, 150);
+            heights.push_back(150);
+        } else if (i==2) {
+            axis = new Axis(0, 250);
+            heights.push_back(250);
+        } else if (i==3) {
+            axis = new Axis(0, 325);
+            heights.push_back(325);
+        }
+        axes.push_back(axis);
+    }
+
+
+    Link* link = new Link();
 
     for(int i=0; i< NUM_LINKS; i++) {
-        link->ellipse =this->addEllipse(-WIDTH/2,HEIGHT*i,WIDTH,HEIGHT,blackPen,blackBrush);
-        link->ellipse->setTransformOriginPoint(0,HEIGHT*i);
+        link->length = heights[i+1] - heights[i];
+
+        link->ellipse = this->addEllipse(-WIDTH/2,heights[i],WIDTH,link->length,blackPen,blackBrush);
+        link->ellipse->setTransformOriginPoint(0,heights[i]);
+
 
         links.push_back(link);
     }
 }
-
 // Maybe i just need the final 3 points
 // TODO get the points correctly
 //void Canvas::update(vector<QPoint>* points) {
@@ -66,7 +97,7 @@ void Canvas::updateLinks() {
         targetFrontJointPos = targetPoints[i];
         link = links[i];
 
-        currentBackJointPos = link->mapToScene(link->pos());
+        currentBackJointPos = link->ellipse->mapToScene(link->ellipse->pos());
         double angleX = targetFrontJointPos.x() - targetBackJointPos.x();
         double angleY = targetFrontJointPos.y() - targetBackJointPos.y();
         double angle = atan2(angleY,angleX) * RAD_TO_DEG - 90; // to degrees

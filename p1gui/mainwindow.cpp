@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     Canvas* canvas = new Canvas(this);
+    canvas->setParent(this);
     //canvas->setSceneRect(ui->graphicsView->width(), ui->graphicsView->height(), 0, 0);
     QRectF rect = ui->graphicsView->rect();
 
@@ -29,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     canvas->setSceneRect(rect);
     ui->graphicsView->scale(1, -1);
     canvas->initialize();
-    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(updateLinks()));
+//    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(updateLinks()));
 
     ui->graphicsView->setScene(canvas);
 

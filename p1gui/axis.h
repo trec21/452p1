@@ -22,9 +22,9 @@ public:
 
     Axis();
 
-    Axis(int origin_x, int origin_y, int l);
+    Axis(int origin_x, int origin_y);
 
-    static void rotate(int whichAxis, double d);
+    void rotate(Axis* axis, double d);
 };
 
 #endif // AXIS_H

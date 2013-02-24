@@ -2,10 +2,10 @@
 
 Axis::Axis()
 {
-    axis_number = Axes.size() - 1;
+
 }
 
-Axis::Axis(int origin_x, int origin_y, int l)
+Axis::Axis(int origin_x, int origin_y)
 {
     loc_x = origin_x;
     loc_y = origin_y;

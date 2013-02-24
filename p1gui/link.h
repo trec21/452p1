@@ -27,7 +27,7 @@ public:
 
     Link();
 
-    Link(int origin_x, int origin_y, int l);
+    Link(int origin_x, int origin_y, int length);
 
     void setDH(int a, int alpha, int d, int theta);
     // void boundingRect() const;
