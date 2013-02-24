@@ -1,8 +1,10 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+//#include "ui_mainwindow.h"
 #include "canvas.h"
 #include <QtGui>
 #include <QDebug>
+
+extern int axis_number;
 
 using namespace std;
 
@@ -10,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    axis_number = 0;
     ui->setupUi(this);
 
     Canvas* canvas = new Canvas(this);
@@ -31,10 +34,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->scale(1, -1);
     canvas->initialize();
 //    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(updateLinks()));
+    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(getAxis()));
+    connect(ui->ccwiseBtn, SIGNAL(clicked()), canvas, SLOT(getAxis()));
+    connect(ui->axisList, SIGNAL(clicked(QModelIndex)), canvas, SLOT(updateList()));
+
 
     ui->graphicsView->setScene(canvas);
 
 
+}
+
+void MainWindow::on_axisList_itemClicked(QListWidgetItem *item)
+{
+    QString qstr_axis_number =0;
+    qstr_axis_number = item->text();
+    axis_number = qstr_axis_number.toInt();
+    qDebug()<<"hey this is the AXIS NUMBER!!!!!"<<axis_number<<endl;
 }
 
 MainWindow::~MainWindow()

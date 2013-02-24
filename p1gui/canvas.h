@@ -14,11 +14,12 @@ class Canvas : public QGraphicsScene
 public:
     explicit Canvas(QObject *parent = 0);
     void initialize();
-
 signals:
 
 public slots:
 
+    void getAxis();
+    void updateList();
 
 
 protected:

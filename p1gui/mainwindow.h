@@ -6,6 +6,10 @@
 #include <QtGui>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include "ui_mainwindow.h"
+
+
+
 
 class CustomScene : public QGraphicsScene
 {
@@ -27,6 +31,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+public slots:
+    void on_axisList_itemClicked(QListWidgetItem *item);
     
 private:
     Ui::MainWindow *ui;

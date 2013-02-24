@@ -2,6 +2,8 @@
 #include <math.h>
 #include <QDebug>
 
+extern int axis_number;
+
 #define _USE_MATH_DEFINES
 
 int NUM_LINKS = 3;
@@ -129,5 +131,14 @@ void Canvas::updateLinks() {
         targetBackJointPos = targetFrontJointPos;
     }
 
+
+}
+
+void Canvas::updateList(){
+}
+
+void Canvas::getAxis(){
+    updateLinks();
+    int neww = axis_number;
 }
 
