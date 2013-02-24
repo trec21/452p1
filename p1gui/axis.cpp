@@ -11,10 +11,11 @@ Axis::Axis(int origin_x, int origin_y)
     loc_y = origin_y;
 }
 
-void Axis::rotate(Axis* axis, double d)
+void Axis::rotate(Axis* axis, double degrees)
 {
     /*
-    returns the position of the next axis
+     * rotates the param axis with myself as the axis of rotation
+
     needs to look up the length of the link between the axes
     and the current axis' orientation
     and generate the rotation matrix to rotate that vector
@@ -22,8 +23,8 @@ void Axis::rotate(Axis* axis, double d)
 
     mat rot_Z;
     rot_Z
-        << cos(d DEGREES) << -1*sin(d DEGREES) << 0 << endr
-        << sin(d DEGREES) << cos(d DEGREES) << 0 << endr
+        << cos(degrees DEGREES) << -1*sin(degrees DEGREES) << 0 << endr
+        << sin(degrees DEGREES) << cos(degrees DEGREES) << 0 << endr
         << 0 << 0 << 1 << endr;
 
     mat current_loc;

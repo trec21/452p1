@@ -21,15 +21,14 @@ void Link::setDH(int a, int alpha, int d, int theta)
 
 
 
-vector<int> getNextAxisPoint(Axis a)
+vector<double> Link::getNextAxisPoint()
 {
-    /*
-    vector<int> coords;
-    int offset = Link::Links[a.axis_number]->length DEGREES;
-    int new_x = a.loc_x + (int)cos(offset);
-    int new_y = a.loc_y + (int)sin(offset);
+    vector<double> coords;
+    double offset = this->length DEGREES;
+    double new_x = backAxis->loc_x + cos(offset);
+    double new_y = backAxis->loc_y + sin(offset);
     coords.push_back(new_x);
     coords.push_back(new_y);
-    return coords; */
+    return coords;
 }
 

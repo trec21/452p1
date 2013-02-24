@@ -6,6 +6,8 @@
 
 #include "armadillo"
 #include <iostream>
+#include "axis.h"
+
 using namespace arma;
 using namespace std;
 
@@ -16,8 +18,6 @@ class Link {
 public:
 
     int length;
-    int loc_x;
-    int loc_y;
     double link_number;
     double _a;
     double _alpha;
@@ -25,11 +25,33 @@ public:
     double _theta;
     QGraphicsEllipseItem* ellipse;
 
+    // front is the initial 'top' axis and back the 'bottom'
+    Axis* frontAxis;
+    Axis* backAxis;
+
     Link();
+
+    /* Getters Setters */
+    double x() {
+        ellipse->x();
+    }
+    double y() {
+        ellipse->y();
+    }
+
+    void setX(double x) {
+        ellipse->setX(x);
+    }
+
+    void setY(double y) {
+        ellipse->setY(y);
+    }
 
     Link(int origin_x, int origin_y, int length);
 
     void setDH(int a, int alpha, int d, int theta);
+
+    vector<double> getNextAxisPoint();
     // void boundingRect() const;
 
     //void rotate(QPoint bottom, QPoint top);

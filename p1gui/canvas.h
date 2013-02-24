@@ -18,7 +18,7 @@ public:
 signals:
 
 public slots:
-
+    void updateLinks();
 
 
 protected:
@@ -31,7 +31,7 @@ private:
     std::vector<Link*> links;
     std::vector<Axis*> axes;
 
-    void updateLinks();
+
 };
 
 #endif // CANVAS_H

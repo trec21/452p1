@@ -53,6 +53,8 @@ void Canvas::initialize() {
         link->ellipse = this->addEllipse(-WIDTH/2,heights[i],WIDTH,link->length,blackPen,blackBrush);
         link->ellipse->setTransformOriginPoint(0,heights[i]);
 
+        link->frontAxis = axes[i+1];
+        link->backAxis = axes[i];
 
         links.push_back(link);
     }
@@ -71,11 +73,22 @@ void Canvas::updateLinks() {
     // FrontJoint = i+1
     // i = link number
 
+    axes[0]->rotate(axes[1], 10);
+
     QPointF targetBackJointPos;
     QPointF targetFrontJointPos;
     targetBackJointPos.setX(0);
     targetBackJointPos.setY(0);
     vector<QPointF> targetPoints;
+    targetPoints.push_back(targetFrontJointPos);
+
+    for(int i=0;i<links.size();i++)
+    {
+        Link* link = links[i];
+        QPointF point (link->getNextAxisPoint()[0], link->getNextAxisPoint()[1]);
+        targetPoints.push_back(point);
+    }
+/*
     targetFrontJointPos.setX(106);
     targetFrontJointPos.setY(106);
     targetPoints.push_back(targetFrontJointPos);
@@ -87,7 +100,7 @@ void Canvas::updateLinks() {
     targetFrontJointPos.setX(0);
     targetFrontJointPos.setY(150 + 106 + 106);
     targetPoints.push_back(targetFrontJointPos);
-
+*/
     QPointF currentBackJointPos;
     QPointF currentFrontJointPos;
     QPointF shiftPoint(0,0);
@@ -100,23 +113,21 @@ void Canvas::updateLinks() {
         currentBackJointPos = link->ellipse->mapToScene(link->ellipse->pos());
         double angleX = targetFrontJointPos.x() - targetBackJointPos.x();
         double angleY = targetFrontJointPos.y() - targetBackJointPos.y();
-        double angle = atan2(angleY,angleX) * RAD_TO_DEG - 90; // to degrees
+        double angle = atan2(angleY,angleX) * RAD_TO_DEG; // to degrees
 
         currentFrontJointPos = QPointF(HEIGHT * sin(link->ellipse->rotation() * DEG_TO_RAD) + currentFrontJointPos.x(),
                                        HEIGHT * cos(link->ellipse->rotation() * DEG_TO_RAD) + currentFrontJointPos.y());
         // Absolute in scene
 
-        qDebug() << "Front: " << currentFrontJointPos << "Back: " <<  currentBackJointPos << "angle: " << angle;
+        qDebug() << "CurrentFront: " << currentFrontJointPos << "CurrentBack: " <<  currentBackJointPos << "angle: " << angle;
+        qDebug() << "TargetFront: " << currentFrontJointPos << "TargetBack: " <<  currentBackJointPos << '\n';
 
         /* This works because of reasons */
         //link->setTransform(QTransform().translate(center.x(), center.y()));
         //link->setPos(center);
         link->ellipse->setPos(shiftPoint);
         // link->setTransformOriginPoint(shiftPoint);
-        if(i !=1)
-            link->ellipse->setRotation(angle);
-        else
-            link->ellipse->setRotation(00);
+        link->ellipse->setRotation(angle);
         //link->setTransform(QTransform().translate(-center.x(), -center.y()));
 
 
@@ -124,7 +135,7 @@ void Canvas::updateLinks() {
         double shitfY = -1*currentFrontJointPos.y() + targetFrontJointPos.y() ;
 
         shiftPoint = QPointF(shitfX, shitfY);
-        qDebug() << "Shift: " << shiftPoint << " FROM: " << link->ellipse->mapToScene(shiftPoint);
+        qDebug() << "Shift: " << shiftPoint << " FROM: " << link->ellipse->mapToScene(shiftPoint) << "\n\n";
 
         targetBackJointPos = targetFrontJointPos;
     }

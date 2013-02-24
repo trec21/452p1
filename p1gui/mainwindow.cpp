@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     canvas->setSceneRect(rect);
     ui->graphicsView->scale(1, -1);
     canvas->initialize();
-//    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(updateLinks()));
+    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(updateLinks()));
 
     ui->graphicsView->setScene(canvas);
 

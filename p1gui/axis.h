@@ -24,7 +24,7 @@ public:
 
     Axis(int origin_x, int origin_y);
 
-    void rotate(Axis* axis, double d);
+    void rotate(Axis* axis, double degrees);
 };
 
 #endif // AXIS_H
