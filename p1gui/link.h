@@ -11,14 +11,10 @@ using namespace std;
 
 #define DEGREES *3.14159265/180
 
-class Link : public QGraphicsEllipseItem {
+class Link {
 
 public:
-    explicit Link(QGraphicsEllipseItem* ellipse)
-        : QGraphicsEllipseItem(ellipse) {
 
-    }
-    static vector<Link*> Links;
     int length;
     int loc_x;
     int loc_y;
@@ -27,6 +23,7 @@ public:
     double _alpha;
     double _d;
     double _theta;
+    QGraphicsEllipseItem* ellipse;
 
     Link();
 

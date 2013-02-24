@@ -13,7 +13,7 @@ using namespace std;
 class Axis
 {
 public:
-    static vector<Axis*> Axes;
+
     double axis_number;
     double orientation;
     int loc_x;

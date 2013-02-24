@@ -5,6 +5,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 #include "link.h"
+#include "axis.h"
+
 
 class Canvas : public QGraphicsScene
 {
@@ -27,6 +29,8 @@ protected:
 
 private:
     std::vector<Link*> links;
+    std::vector<Axis*> axes;
+
 
 };
 

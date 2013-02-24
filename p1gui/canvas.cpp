@@ -11,13 +11,6 @@ double RAD_TO_DEG = 180 / M_PI;
 double DEG_TO_RAD = M_PI / 180;
 
 
-Canvas::Canvas(QObject *parent) :
-    QGraphicsScene(parent)
-{
-
-
-
-}
 
 void Canvas::initialize() {
     QBrush blackBrush(Qt::black);
@@ -26,8 +19,8 @@ void Canvas::initialize() {
     Link* link;
 
     for(int i=0; i< NUM_LINKS; i++) {
-        link = static_cast <Link*>(this->addEllipse(-WIDTH/2,HEIGHT*i,WIDTH,HEIGHT,blackPen,blackBrush));
-        link->setTransformOriginPoint(0,HEIGHT*i);
+        link->ellipse =this->addEllipse(-WIDTH/2,HEIGHT*i,WIDTH,HEIGHT,blackPen,blackBrush);
+        link->ellipse->setTransformOriginPoint(0,HEIGHT*i);
 
         links.push_back(link);
     }
@@ -78,7 +71,8 @@ void Canvas::updateLinks() {
         double angleY = targetFrontJointPos.y() - targetBackJointPos.y();
         double angle = atan2(angleY,angleX) * RAD_TO_DEG - 90; // to degrees
 
-        currentFrontJointPos = QPointF(HEIGHT * sin(link->rotation() * DEG_TO_RAD) + currentFrontJointPos.x(), HEIGHT * cos(link->rotation() * DEG_TO_RAD) + currentFrontJointPos.y());
+        currentFrontJointPos = QPointF(HEIGHT * sin(link->ellipse->rotation() * DEG_TO_RAD) + currentFrontJointPos.x(),
+                                       HEIGHT * cos(link->ellipse->rotation() * DEG_TO_RAD) + currentFrontJointPos.y());
         // Absolute in scene
 
         qDebug() << "Front: " << currentFrontJointPos << "Back: " <<  currentBackJointPos << "angle: " << angle;
@@ -86,12 +80,12 @@ void Canvas::updateLinks() {
         /* This works because of reasons */
         //link->setTransform(QTransform().translate(center.x(), center.y()));
         //link->setPos(center);
-        link->setPos(shiftPoint);
+        link->ellipse->setPos(shiftPoint);
         // link->setTransformOriginPoint(shiftPoint);
         if(i !=1)
-            link->setRotation(angle);
+            link->ellipse->setRotation(angle);
         else
-            link->setRotation(00);
+            link->ellipse->setRotation(00);
         //link->setTransform(QTransform().translate(-center.x(), -center.y()));
 
 
@@ -99,7 +93,7 @@ void Canvas::updateLinks() {
         double shitfY = -1*currentFrontJointPos.y() + targetFrontJointPos.y() ;
 
         shiftPoint = QPointF(shitfX, shitfY);
-        qDebug() << "Shift: " << shiftPoint << " FROM: " << link->mapToScene(shiftPoint);
+        qDebug() << "Shift: " << shiftPoint << " FROM: " << link->ellipse->mapToScene(shiftPoint);
 
         targetBackJointPos = targetFrontJointPos;
     }

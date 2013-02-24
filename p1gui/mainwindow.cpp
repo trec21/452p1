@@ -11,14 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-/*
-    QGraphicsScene *scene = new CustomScene;
-            QGraphicsView *view = new QGraphicsView(this);
-            scene->setSceneRect(-180, 180, 360, 180);
-            view->setScene(scene);
-            view->scale(1, -1);
-            setCentralWidget(view);
-*/
 
     Canvas* canvas = new Canvas(this);
     //canvas->setSceneRect(ui->graphicsView->width(), ui->graphicsView->height(), 0, 0);
