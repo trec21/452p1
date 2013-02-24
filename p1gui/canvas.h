@@ -14,11 +14,13 @@ class Canvas : public QGraphicsScene
 public:
     explicit Canvas(QObject *parent = 0);
     void initialize();
-
 signals:
 
 public slots:
-    void updateLinks();
+
+
+    void getAxis();
+    void updateList();
 
 
 protected:
@@ -31,7 +33,7 @@ private:
     std::vector<Link*> links;
     std::vector<Axis*> axes;
 
-
+    void updateLinks();
 };
 
 #endif // CANVAS_H
