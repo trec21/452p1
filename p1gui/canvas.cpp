@@ -15,12 +15,15 @@ double DEG_TO_RAD = M_PI / 180;
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
 {
-    painter = new Painter(0);
-    painter->setFixedSize(w, h);
-    QGraphicsProxyWidget *proxy = addWidget(painter);
+
 }
 
 void Canvas::initialize() {
+    painter = new Painter(0);
+    painter->resize(width(), height());
+    painter->move(-width()/2, 0);
+    struct QGraphicsProxyWidget *proxy = addWidget(painter);
+
     QBrush blackBrush(Qt::black);
     QPen blackPen(Qt::black);
     blackPen.setWidth(1);
@@ -147,6 +150,10 @@ void Canvas::updateList(){
 }
 
 void Canvas::paint() {
+    qDebug() << "ABOUT TO PAINT\n";
+    int size = links.size();
+    int x = links[3]->frontAxis->loc_x;
+    int y = links[3]->frontAxis->loc_y;
     painter->addPoint((int)links[3]->frontAxis->loc_x, (int)links[3]->frontAxis->loc_y);
     painter->update();
 }

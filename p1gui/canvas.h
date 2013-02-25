@@ -13,7 +13,7 @@ class Canvas : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    explicit Canvas(QObject *parent = 0);
+    explicit Canvas(QObject *parent);
     void initialize();
     int h, w;
 signals:

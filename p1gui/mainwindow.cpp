@@ -26,13 +26,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // be positive downward, that's why i did the scale. Now we have the origin at the base :D
 
     rect.setX(-rect.width()/2 );
+    //rect.setX(0);
     rect.setY(0);
     rect.setWidth(ui->graphicsView->width()-10);
     rect.setHeight(ui->graphicsView->height()-10);
 
     canvas->setSceneRect(rect);
-    canvas->h = ui->graphicsView->width()-10;
-    canvas->w = ui->graphicsView->height()-10;
     ui->graphicsView->scale(1, -1);
     canvas->initialize();
 
