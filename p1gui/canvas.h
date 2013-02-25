@@ -23,6 +23,7 @@ public slots:
     void updateList();
 
 
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
@@ -34,6 +35,7 @@ private:
     std::vector<Axis*> axes;
 
     void updateLinks();
+    void rotate_axis(Axis* base_axis, Axis* rotated_axis, double degrees, Link* link);
 };
 
 #endif // CANVAS_H

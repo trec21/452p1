@@ -19,6 +19,7 @@ public:
 
     int length;
     double link_number;
+    double orientation;
     double _a;
     double _alpha;
     double _d;
@@ -32,6 +33,7 @@ public:
     Link();
 
     /* Getters Setters */
+
     double x() {
         ellipse->x();
     }

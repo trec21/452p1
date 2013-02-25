@@ -47,9 +47,10 @@ void Canvas::initialize() {
     }
 
 
-    Link* link = new Link();
+
 
     for(int i=0; i< NUM_LINKS; i++) {
+        Link* link = new Link();
         link->length = heights[i+1] - heights[i];
 
         link->ellipse = this->addEllipse(-WIDTH/2,heights[i],WIDTH,link->length,blackPen,blackBrush);
@@ -57,6 +58,7 @@ void Canvas::initialize() {
 
         link->frontAxis = axes[i+1];
         link->backAxis = axes[i];
+        link->orientation = 0;
 
         links.push_back(link);
     }
@@ -75,7 +77,7 @@ void Canvas::updateLinks() {
     // FrontJoint = i+1
     // i = link number
 
-    axes[0]->rotate(axes[1], 10);
+    rotate_axis(axes[0], axes[1], 10, links[0]);
 
     QPointF targetBackJointPos;
     QPointF targetFrontJointPos;
@@ -87,7 +89,11 @@ void Canvas::updateLinks() {
     for(int i=0;i<links.size();i++)
     {
         Link* link = links[i];
-        QPointF point (link->getNextAxisPoint()[0], link->getNextAxisPoint()[1]);
+        vector<double> coordinates = link->getNextAxisPoint();
+        double new_x = coordinates[0];
+        double new_y = coordinates[1];
+        QPointF point (new_x, new_y);
+        qDebug() << "Next X: " << new_x << "Next Y: " << new_y <<"'\n";
         targetPoints.push_back(point);
     }
 /*
@@ -151,5 +157,11 @@ void Canvas::updateList(){
 void Canvas::getAxis(){
     updateLinks();
     int neww = axis_number;
+}
+
+void Canvas::rotate_axis(Axis* base_axis, Axis* rotated_axis, double degrees, Link* link)
+{
+   link->orientation = degrees;
+   base_axis->rotate(rotated_axis, degrees);
 }
 
