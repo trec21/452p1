@@ -4,9 +4,10 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
+
 #include "link.h"
 #include "axis.h"
-
+#include "painter.h"
 
 class Canvas : public QGraphicsScene
 {
@@ -14,6 +15,7 @@ class Canvas : public QGraphicsScene
 public:
     explicit Canvas(QObject *parent = 0);
     void initialize();
+    int h, w;
 signals:
 
 public slots:
@@ -21,6 +23,7 @@ public slots:
 
     void getAxis();
     void updateList();
+    void paint();
 
 
 protected:
@@ -28,12 +31,16 @@ protected:
     {
         qDebug() << event->scenePos();
     }
+    void paintEvent(QPaintEvent *event);
 
 private:
+    Painter *painter;
     std::vector<Link*> links;
     std::vector<Axis*> axes;
+    bool paintTrigger;
 
     void updateLinks();
+
 };
 
 #endif // CANVAS_H

@@ -31,12 +31,15 @@ MainWindow::MainWindow(QWidget *parent) :
     rect.setHeight(ui->graphicsView->height()-10);
 
     canvas->setSceneRect(rect);
+    canvas->h = ui->graphicsView->width()-10;
+    canvas->w = ui->graphicsView->height()-10;
     ui->graphicsView->scale(1, -1);
     canvas->initialize();
 
     connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(getAxis()));
     connect(ui->ccwiseBtn, SIGNAL(clicked()), canvas, SLOT(getAxis()));
     connect(ui->axisList, SIGNAL(clicked(QModelIndex)), canvas, SLOT(updateList()));
+    connect(ui->paintBtn, SIGNAL(clicked()), canvas, SLOT(paint()));
 
     ui->graphicsView->setScene(canvas);
 

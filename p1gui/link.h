@@ -33,10 +33,10 @@ public:
 
     /* Getters Setters */
     double x() {
-        ellipse->x();
+        return ellipse->x();
     }
     double y() {
-        ellipse->y();
+        return ellipse->y();
     }
 
     void setX(double x) {

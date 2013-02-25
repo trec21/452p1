@@ -34,6 +34,7 @@ public:
 
 public slots:
     void on_axisList_itemClicked(QListWidgetItem *item);
+    //void on_paintBtn_clicked(QPushButton *item);
     
 private:
     Ui::MainWindow *ui;

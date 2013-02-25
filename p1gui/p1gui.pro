@@ -16,13 +16,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     link.cpp \
     canvas.cpp \
-    axis.cpp
+    axis.cpp \
+    painter.cpp
 
 HEADERS  += mainwindow.h \
     link.h \
     canvas.h \
     armadillo \
-    axis.h
+    axis.h \
+    painter.h
 
 FORMS    += mainwindow.ui
 

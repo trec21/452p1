@@ -15,11 +15,10 @@ double DEG_TO_RAD = M_PI / 180;
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
 {
-
-
-
+    painter = new Painter(0);
+    painter->setFixedSize(w, h);
+    QGraphicsProxyWidget *proxy = addWidget(painter);
 }
-
 
 void Canvas::initialize() {
     QBrush blackBrush(Qt::black);
@@ -61,6 +60,7 @@ void Canvas::initialize() {
         links.push_back(link);
     }
 }
+
 // Maybe i just need the final 3 points
 // TODO get the points correctly
 //void Canvas::update(vector<QPoint>* points) {
@@ -141,12 +141,16 @@ void Canvas::updateLinks() {
 
         targetBackJointPos = targetFrontJointPos;
     }
-
-
 }
 
 void Canvas::updateList(){
 }
+
+void Canvas::paint() {
+    painter->addPoint((int)links[3]->frontAxis->loc_x, (int)links[3]->frontAxis->loc_y);
+    painter->update();
+}
+
 
 void Canvas::getAxis(){
     updateLinks();
