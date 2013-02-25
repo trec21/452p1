@@ -150,11 +150,7 @@ void Canvas::updateList(){
 }
 
 void Canvas::paint() {
-    qDebug() << "ABOUT TO PAINT\n";
-    int size = links.size();
-    int x = links[3]->frontAxis->loc_x;
-    int y = links[3]->frontAxis->loc_y;
-    painter->addPoint((int)links[3]->frontAxis->loc_x, (int)links[3]->frontAxis->loc_y);
+    painter->addPoint((int)links[2]->frontAxis->loc_x, (int)links[2]->frontAxis->loc_y);
     painter->update();
 }
 
