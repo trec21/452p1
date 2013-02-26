@@ -7,7 +7,7 @@ extern int axis_number;
 #define _USE_MATH_DEFINES
 
 int NUM_LINKS = 3;
-int BASE_ANGLE = 60;
+int BASE_ANGLE = 30;
 int WIDTH = 30;
 int HEIGHT = 5*WIDTH;
 double RAD_TO_DEG = 180 / M_PI;
@@ -122,6 +122,11 @@ void Canvas::updateLinks(Link* _link, double _angle) {
         double angleX = front->loc_x - back->loc_x;
         double angleY = front->loc_y - back->loc_y;
         double angle = atan2(angleY,angleX) * RAD_TO_DEG - 90; // to degrees
+        qDebug() << "Front:  "<< front->loc_x << "," << front->loc_y;
+        qDebug() << "Back:   "<< back->loc_x << "," << back->loc_y;
+
+
+        qDebug() << "AngleX: "<< angle;
 
         delete link->ellipse;
         link->ellipse = this->addEllipse(-1*WIDTH/2,0, WIDTH,link->length,blackPen,blackBrush);
