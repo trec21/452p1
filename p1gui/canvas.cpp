@@ -108,9 +108,7 @@ void Canvas::updateLinks(Link* _link, double _angle) {
         targetPoints.push_back(point);
     }
 
-    QPointF currentBackJointPos;
-    QPointF currentFrontJointPos;
-    QPointF shiftPoint(0,0);
+
 
     QBrush blackBrush(Qt::black);
     QPen blackPen(Qt::black);
@@ -118,23 +116,56 @@ void Canvas::updateLinks(Link* _link, double _angle) {
 
     for(int i=0; i< NUM_LINKS; i++) {
 
-        targetFrontJointPos = targetPoints[i+1];
         Link* link = links[i];
-
-        currentBackJointPos = link->ellipse->mapToScene(link->ellipse->pos());
+        Axis* front = link->frontAxis;
+        Axis* back  = link->backAxis;
+        double angleX = front->loc_x - back->loc_x;
+        double angleY = front->loc_y - back->loc_y;
+        double angle = atan2(angleY,angleX) * RAD_TO_DEG - 90; // to degrees
 
         delete link->ellipse;
-        double angleX = targetFrontJointPos.x() - targetBackJointPos.x();
-        double angleY = targetFrontJointPos.y() - targetBackJointPos.y();
+        link->ellipse = this->addEllipse(-1*WIDTH/2,0, WIDTH,link->length,blackPen,blackBrush);
+        link->ellipse->setRotation(angle);
+        link->ellipse->setX(targetPoints[i].x());
+        link->ellipse->setY(targetPoints[i].y());
+        //link->ellipse->setTransformOriginPoint(targetPoints[i].x(), targetPoints[i].y());
+
+       // link->ellipse->setPos(targetFrontJointPos.x(),targetFrontJointPos.y());
+    }
+
+
+
+
+    /****
+     *Almost working
+     *
+     *
+     * QBrush blackBrush(Qt::black);
+    QPen blackPen(Qt::black);
+    blackPen.setWidth(1);
+
+    for(int i=0; i< NUM_LINKS; i++) {
+
+        Link* link = links[i];
+
+        double angleX = link->frontAxis->loc_x - link->backAxis->loc_x;
+        double angleY = link->frontAxis->loc_y - link->backAxis->loc_y;
         double angle = atan2(angleY,angleX) * RAD_TO_DEG - 90; // to degrees
 
 
+        delete link->ellipse;
         link->ellipse = this->addEllipse(-1*WIDTH/2,0, WIDTH,link->length,blackPen,blackBrush);
         link->ellipse->setRotation(angle);
+        link->ellipse->setX(targetPoints[i].x());
+        link->ellipse->setY(targetPoints[i].y());
         //link->ellipse->setTransformOriginPoint(targetPoints[i].x(), targetPoints[i].y());
 
-        link->ellipse->setPos(targetFrontJointPos.x(),targetFrontJointPos.y());
-    }
+       // link->ellipse->setPos(targetFrontJointPos.x(),targetFrontJointPos.y());
+    }*/
+
+
+
+
 
     /*
 
