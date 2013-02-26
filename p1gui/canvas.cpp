@@ -5,13 +5,17 @@
 extern int axis_number;
 
 #define _USE_MATH_DEFINES
+/* Utils */
+#define RAD_TO_DEG 180/M_PI
+#define DEG_TO_RAD M_PI/180
 
-int NUM_LINKS = 3;
-int BASE_ANGLE = 60;
-int WIDTH = 30;
-int HEIGHT = 5*WIDTH;
-double RAD_TO_DEG = 180 / M_PI;
-double DEG_TO_RAD = M_PI / 180;
+/* Program Config */
+#define NUM_LINKS 3
+#define BASE_ANGLE 60
+#define WIDTH 30
+#define HEIGHT 5*WIDTH
+#define PAINTER_RADIUS 16
+
 
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
@@ -185,8 +189,13 @@ void Canvas::updateList(){
 
 
 void Canvas::paint() {
-    painter->addPoint((int)links[2]->frontAxis->loc_x, (int)links[2]->frontAxis->loc_y);
-    painter->update();
+    QBrush redBrush(Qt::red);
+    QPen redPen(Qt::red);
+    redPen.setWidth(2);
+    this->addEllipse((int)links[2]->frontAxis->loc_x - PAINTER_RADIUS/2,(int)links[2]->frontAxis->loc_y - PAINTER_RADIUS/2, PAINTER_RADIUS,PAINTER_RADIUS,redPen,redBrush);
+
+    //painter->addPoint((int)links[2]->frontAxis->loc_x, (int)links[2]->frontAxis->loc_y);
+    //painter->update();
 }
 
 
