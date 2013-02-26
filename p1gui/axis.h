@@ -16,9 +16,11 @@ public:
 
     double axis_number;
     double orientation;
-    int loc_x;
-    int loc_y;
+    double loc_x;
+    double loc_y;
     //mat rot_Z;
+
+    Axis* nextAxis;
 
     Axis();
 

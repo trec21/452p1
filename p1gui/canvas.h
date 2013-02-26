@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include <QListWidget>
 #include <QDebug>
 #include "link.h"
 #include "axis.h"
@@ -14,15 +15,17 @@ class Canvas : public QGraphicsScene
 public:
     explicit Canvas(QObject *parent = 0);
     void initialize();
+    void setAxesList(QListWidget* list);
+
 signals:
 
 public slots:
 
 
-    void getAxis();
-    void updateList();
 
 
+    void rotateCW();
+    void rotateCCW();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -33,8 +36,12 @@ protected:
 private:
     std::vector<Link*> links;
     std::vector<Axis*> axes;
+    QListWidget* axesList;
+    void updateList();
+    int getAxis();
+    void setUpAxes();
 
-    void updateLinks();
+    void updateLinks(Link *_link, double _angle);
     void rotate_axis(Axis* base_axis, Axis* rotated_axis, double degrees, Link* link);
 };
 

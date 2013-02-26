@@ -43,4 +43,29 @@ void Axis::rotate(Axis* axis, double degrees)
     axis->loc_x = result(0,0);
     axis->loc_y = result(1,0);
 
+    Axis* next = axis->nextAxis;
+    while (next != NULL) {
+
+      // That substraction is the dx and dy
+      // TODO This only works if links dont follow the same moving angle
+
+        next->loc_x += result(0,0) - current_loc(0,0);
+        next->loc_y += result(1,0) - current_loc(1,0);
+        next = next->nextAxis;
+    }
+   /* vector<double> coords;
+    double offset = this->length;
+    double o = orientation;
+    double current_x = backAxis->loc_x;
+    double current_y = backAxis->loc_y;
+    double new_x = current_x + offset * sin(orientation DEGREES);
+    double new_y = current_y + offset * cos(orientation DEGREES);
+
+    //updating front axis
+    frontAxis->loc_x = new_x;
+    frontAxis->loc_y = new_y;
+
+    coords.push_back(new_x);
+    coords.push_back(new_y);
+*/
 }
