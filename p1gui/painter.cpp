@@ -3,6 +3,10 @@
 Painter::Painter(QWidget *parent)
     : QWidget(parent), x (0),  y(0)
 {
+    QPalette p(palette());
+    p.setColor(QPalette::Background, Qt::white);
+    setAutoFillBackground(true);
+    setPalette(p);
     trigger = false;
 }
 
@@ -19,7 +23,7 @@ void Painter::paintEvent(QPaintEvent *event) {
         QPainter painter(this);
         QPen pen(Qt::red, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
         painter.setPen(pen);
-        painter.drawPoint(x, y);
+        painter.drawPoint(xOffset + x, y);
     }
     trigger = false;
 }
