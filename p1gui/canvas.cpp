@@ -20,7 +20,7 @@ extern int axis_number;
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
 {
-
+    painter = new Painter(0);
 }
 
 
@@ -36,7 +36,7 @@ void Canvas::setUpAxes() {
 }
 
 void Canvas::initialize() {
-    painter = new Painter(0);
+
     painter->resize(width(), height());
     painter->move(-width()/2, 0);
     painter->setXOffset(width()/2);
