@@ -24,7 +24,8 @@ HEADERS  += mainwindow.h \
     canvas.h \
     armadillo \
     axis.h \
-    painter.h
+    painter.h \
+    Utils.h
 
 FORMS    += mainwindow.ui
 

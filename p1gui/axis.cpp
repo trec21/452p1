@@ -29,8 +29,8 @@ void Axis::rotate(Axis* axis, double degrees)
 
     mat current_loc;
     current_loc
-        << axis->loc_x << endr
-        << axis->loc_y << endr
+        << axis->loc_x - this->loc_x << endr
+        << axis->loc_y - this->loc_y << endr
         << 0 << endr;
 
     rot_Z.print("ROT_Z:");
@@ -40,8 +40,8 @@ void Axis::rotate(Axis* axis, double degrees)
     mat result = rot_Z * current_loc;
     result.print("New Location:");
 
-    axis->loc_x = result(0,0);
-    axis->loc_y = result(1,0);
+    axis->loc_x = result(0,0) + this->loc_x;
+    axis->loc_y = result(1,0) + this->loc_y;
 
     Axis* next = axis->nextAxis;
     while (next != NULL) {

@@ -1,21 +1,9 @@
 #include "canvas.h"
+#include "Utils.h"
 #include <math.h>
 #include <QDebug>
 
 extern int axis_number;
-
-#define _USE_MATH_DEFINES
-/* Utils */
-#define RAD_TO_DEG 180/M_PI
-#define DEG_TO_RAD M_PI/180
-
-/* Program Config */
-#define NUM_LINKS 3
-#define BASE_ANGLE 60
-#define WIDTH 30
-#define HEIGHT 5*WIDTH
-#define PAINTER_DIAMETER 10
-
 
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
