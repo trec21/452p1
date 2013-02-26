@@ -32,12 +32,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     canvas->setSceneRect(rect);
     ui->graphicsView->scale(1, -1);
+
+    ui->axisList->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->axisList->item(0)->setSelected(true);
+    canvas->setAxesList( ui->axisList);
     canvas->initialize();
 
-    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(getAxis()));
-    connect(ui->ccwiseBtn, SIGNAL(clicked()), canvas, SLOT(getAxis()));
-    connect(ui->axisList, SIGNAL(clicked(QModelIndex)), canvas, SLOT(updateList()));
+    connect(ui->cwiseBtn, SIGNAL(clicked()), canvas, SLOT(rotateCW()));
+    connect(ui->ccwiseBtn, SIGNAL(clicked()), canvas, SLOT(rotateCCW()));
     connect(ui->paintBtn, SIGNAL(clicked()), canvas, SLOT(paint()));
+    // connect(ui->axisList, SIGNAL(clicked(QModelIndex)), canvas, SLOT(updateList()));
 
     ui->graphicsView->setScene(canvas);
 
