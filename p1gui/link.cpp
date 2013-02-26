@@ -33,7 +33,7 @@ vector<double> Link::getNextAxisPoint()
     double new_y = current_y + offset * cos(orientation DEGREES);
 
     //updating front axis
-    frontAxis->loc_x = -1*new_x;
+    frontAxis->loc_x = new_x;
     frontAxis->loc_y = new_y;
 
     coords.push_back(new_x);

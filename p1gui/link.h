@@ -17,7 +17,7 @@ class Link {
 
 public:
 
-    int length;
+    double length;
     double link_number;
     double orientation;
     double _a;
@@ -25,6 +25,7 @@ public:
     double _d;
     double _theta;
     QGraphicsEllipseItem* ellipse;
+
 
     // front is the initial 'top' axis and back the 'bottom'
     Axis* frontAxis;
