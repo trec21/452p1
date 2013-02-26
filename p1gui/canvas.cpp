@@ -14,7 +14,7 @@ extern int axis_number;
 #define BASE_ANGLE 60
 #define WIDTH 30
 #define HEIGHT 5*WIDTH
-#define PAINTER_RADIUS 16
+#define PAINTER_DIAMETER 10
 
 
 Canvas::Canvas(QObject *parent) :
@@ -192,7 +192,7 @@ void Canvas::paint() {
     QBrush redBrush(Qt::red);
     QPen redPen(Qt::red);
     redPen.setWidth(2);
-    this->addEllipse((int)links[2]->frontAxis->loc_x - PAINTER_RADIUS/2,(int)links[2]->frontAxis->loc_y - PAINTER_RADIUS/2, PAINTER_RADIUS,PAINTER_RADIUS,redPen,redBrush);
+    this->addEllipse((int)links[2]->frontAxis->loc_x - PAINTER_DIAMETER/2,(int)links[2]->frontAxis->loc_y - PAINTER_DIAMETER/2, PAINTER_DIAMETER,PAINTER_DIAMETER,redPen,redBrush);
 
     //painter->addPoint((int)links[2]->frontAxis->loc_x, (int)links[2]->frontAxis->loc_y);
     //painter->update();
